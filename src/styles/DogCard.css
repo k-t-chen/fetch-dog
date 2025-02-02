@@ -1,0 +1,73 @@
+.dog-info {
+  padding: 16px;
+  text-align: left;
+}
+
+.dog-name {
+  margin: 0 0 8px;
+  font-size: 1.5em;
+  color: #333;
+}
+
+.dog-breed,
+.dog-age,
+.dog-location {
+  margin: 4px 0;
+  font-size: 0.9em;
+  color: #666;
+}
+
+.favorite-button {
+  width: 100%;
+  padding: 10px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 0 0 12px 12px;
+  cursor: pointer;
+  font-size: 1em;
+  transition: background-color 0.2s;
+}
+
+.favorite-button:hover {
+  background-color: #0056b3;
+}
+
+.favorite-button.favorited {
+  background-color: #dc3545;
+}
+
+.favorite-button.favorited:hover {
+  background-color: #c82333;
+}
+
+.dog-card {
+  flex: 1 1 calc(30% - 20px); /* Adjusted for three cards per row */
+  box-sizing: border-box;
+  border: 1px solid #e0e0e0;
+  border-radius: 12px;
+  overflow: hidden;
+  background-color: #fff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s, box-shadow 0.2s;
+  max-width: 300px; /* Ensures consistent width */
+}
+
+.dog-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.dog-image {
+  width: 100%;
+  height: 150px; /* Reduced height for smaller image */
+  object-fit: cover;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.dog-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between; /* Ensures three per row */
+  gap: 20px;
+}
