@@ -6,12 +6,12 @@ const Filters = ({ breeds, onFilterChange }) => {
   const handleBreedChange = (e) => {
     const value = e.target.value;
     if (value === "") {
-      setSelectedBreeds([]); // Reset selection
-      onFilterChange("breeds", []); // Reset filter
+      setSelectedBreeds([]);
+      onFilterChange("breeds", []);
     } else {
       const newSelectedBreeds = selectedBreeds.includes(value)
-        ? selectedBreeds.filter((breed) => breed !== value) // Remove if already selected
-        : [...selectedBreeds, value]; // Add if not selected
+        ? selectedBreeds.filter((breed) => breed !== value)
+        : [...selectedBreeds, value];
 
       setSelectedBreeds(newSelectedBreeds);
       onFilterChange("breeds", newSelectedBreeds);

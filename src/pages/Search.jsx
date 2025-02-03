@@ -8,12 +8,20 @@ const Search = () => {
   const [dogs, setDogs] = useState([]);
   const [breeds, setBreeds] = useState([]);
   const [filters, setFilters] = useState({ breeds: [], ageMin: 0, ageMax: 20 });
-  const [favorites, setFavorites] = useState([]);
+  const [favorites, setFavorites] = useState(
+    JSON.parse(localStorage.getItem("favorites")) || [] // Initialize from localStorage
+  );
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [totalResults, setTotalResults] = useState(0);
-  const [sortOrder, setSortOrder] = useState("asc"); // Track sorting order
+  const [sortOrder, setSortOrder] = useState("asc");
 
+  // Save favorites to localStorage whenever it changes
+  useEffect(() => {
+    localStorage.setItem("favorites", JSON.stringify(favorites));
+  }, [favorites]);
+
+  // Fetch breeds when the component mounts
   useEffect(() => {
     const fetchBreeds = async () => {
       try {
@@ -29,6 +37,7 @@ const Search = () => {
     fetchBreeds();
   }, []);
 
+  // Fetch dogs based on filters, current page, and sort order
   useEffect(() => {
     const fetchDogs = async () => {
       try {
@@ -44,13 +53,11 @@ const Search = () => {
             withCredentials: true,
           }
         );
-
         const dogDetails = await axios.post(
           "https://frontend-take-home-service.fetch.com/dogs",
           response.data.resultIds,
           { withCredentials: true }
         );
-
         setDogs(dogDetails.data);
         setTotalResults(response.data.total);
         setTotalPages(Math.ceil(response.data.total / 25));
@@ -61,11 +68,13 @@ const Search = () => {
     fetchDogs();
   }, [filters, currentPage, sortOrder]);
 
+  // Handle filter changes
   const handleFilterChange = (key, value) => {
     setFilters((prevFilters) => ({ ...prevFilters, [key]: value }));
     setCurrentPage(1);
   };
 
+  // Add or remove a dog from favorites
   const toggleFavorite = (dogId) => {
     setFavorites((prevFavorites) =>
       prevFavorites.includes(dogId)
@@ -74,6 +83,7 @@ const Search = () => {
     );
   };
 
+  // Generate a match from favorites
   const generateMatch = async () => {
     if (favorites.length === 0) {
       alert("Please add at least one dog to your favorites!");
@@ -98,10 +108,12 @@ const Search = () => {
     }
   };
 
+  // Handle page change
   const handlePageChange = (newPage) => {
     setCurrentPage(newPage);
   };
 
+  // Toggle sorting order
   const toggleSortOrder = () => {
     setSortOrder((prevOrder) => (prevOrder === "asc" ? "desc" : "asc"));
   };

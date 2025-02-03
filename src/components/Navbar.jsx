@@ -14,6 +14,9 @@ const Navbar = () => {
         <Link to="/search" className="navbar-link">
           Search Dogs
         </Link>
+        <Link to="/favorites" className="navbar-link">
+          Favorites
+        </Link>
       </div>
     </nav>
   );
